@@ -10,8 +10,8 @@
     <span>{{ price }}</span>
     <span class="text-sm">description: {{ description }}</span>
     <div class="flex items-center justify-between text-sm">
-      <span>rate: {{ rate }}</span>
-      <span>count: {{ count }}</span>
+      <span>rate: {{ rating.rate }}</span>
+      <span>count: {{ rating.count }}</span>
     </div>
   </div>
 </template>
@@ -23,8 +23,10 @@ defineProps<{
   category: string;
   price: number;
   description: string;
-  rate: number;
-  count: number;
+  rating: {
+    rate: number;
+    count: number;
+  };
 }>();
 </script>
 

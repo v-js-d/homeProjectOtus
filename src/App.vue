@@ -8,15 +8,13 @@
       :category="item.category"
       :price="item.price"
       :description="item.description"
-      :rate="item.rating.rate"
-      :count="item.rating.count"
+      :rating="item.rating"
     />
   </div>
 </template>
 
 <script setup lang="ts">
 import MyProducts from "./components/MyProducts.vue";
-import json from "../public/products.json";
+import json from "./products.json";
 </script>
-
 <style scoped />
