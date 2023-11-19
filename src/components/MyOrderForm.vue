@@ -70,9 +70,9 @@
             :disabled="!ruleForm.agreement"
             @click="submitForm(ruleFormRef)"
           >
-            Create
+            Заказать
           </el-button>
-          <el-button @click="closeForm(ruleFormRef)">Reset</el-button>
+          <el-button @click="closeForm(ruleFormRef)">Отменить</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -190,12 +190,12 @@ const rules = reactive<FormRules<RuleForm>>({
 
 const submitForm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
-  await formEl.validate(async (valid, fields) => {
+  await formEl.validate(async (valid) => {
     if (valid) {
       const { name, surname, telephone, city, address, date1, date2 } =
         ruleForm;
       try {
-        const res = await axios.post("https://httpbin.org/anything", {
+        await axios.post("https://httpbin.org/anything", {
           name,
           surname,
           telephone,
@@ -204,21 +204,17 @@ const submitForm = async (formEl: FormInstance | undefined) => {
           date1,
           date2,
         });
-        console.log(res);
         emit("update:modelValue", false);
         ElMessage({
           message: "Заказ оформлен",
           type: "success",
         });
       } catch (e) {
-        console.log(e);
         ElMessage({
           message: "Что то пошло не так",
           type: "error",
         });
       }
-    } else {
-      console.log("error submit!", fields);
     }
   });
 };

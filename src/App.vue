@@ -3,12 +3,16 @@
     <el-header class="flex items-center justify-between">
       <h1>Header</h1>
       <div class="flex items-center">
-        <el-button type="primary" size="small" @click="icShowOrderForm">
+        <el-button type="primary" size="small" @click="isShowDialog('create')">
+          Создать
+        </el-button>
+        <el-button type="primary" size="small" @click="isShowDialog('order')">
           Заказать
         </el-button>
         <my-input v-model="search" />
       </div>
-      <my-order-form v-model="dialogBrand" />
+      <my-order-form v-model="dialogOrder" />
+      <my-create-product v-model="dialogCreateProduct" />
     </el-header>
     <el-main>
       <div
@@ -36,6 +40,7 @@ import axios from "axios";
 import { onMounted, ref, computed } from "vue";
 import MyOrderForm from "./components/MyOrderForm.vue";
 import MyInput from "./components/MyInput.vue";
+import MyCreateProduct from "./components/MyCreateProduct.vue";
 
 interface Product {
   id: number;
@@ -61,7 +66,8 @@ onMounted(async () => {
 
 const products = ref<Product[]>([]);
 const search = ref<string>("");
-const dialogBrand = ref<boolean>(false);
+const dialogOrder = ref<boolean>(false);
+const dialogCreateProduct = ref<boolean>(false);
 
 const filterTableData = computed(() =>
   products.value.filter(
@@ -72,8 +78,13 @@ const filterTableData = computed(() =>
   ),
 );
 
-function icShowOrderForm() {
-  dialogBrand.value = !dialogBrand.value;
+function isShowDialog(el: string) {
+  if (el === "order") {
+    dialogOrder.value = !dialogOrder.value;
+  }
+  if (el === "create") {
+    dialogCreateProduct.value = !dialogCreateProduct.value;
+  }
 }
 </script>
 <style scoped lang="scss" />
