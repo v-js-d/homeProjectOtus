@@ -13,6 +13,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
+    "types": ["element-plus/global"],
 
     /* Linting */
     "strict": true,
@@ -20,6 +21,13 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "node_modules/unplugin-auto-import/auto-imports.d.ts",
+    "node_modules/unplugin-auto-import/auto-imports.d.ts"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
