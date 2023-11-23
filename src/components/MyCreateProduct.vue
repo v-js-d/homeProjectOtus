@@ -7,6 +7,7 @@
       title="Создать новый продукт"
       style="border-radius: 15px"
       align-center
+      width="500"
     >
       <el-form
         ref="ruleFormRef"
@@ -25,7 +26,7 @@
           <el-input v-model="ruleForm.category" />
         </el-form-item>
         <el-form-item label="Цена:" prop="price">
-          <el-input-number v-model="ruleForm.price" />
+          <el-input-number v-model="ruleForm.price" :min="0" />
         </el-form-item>
         <el-form-item label="Описание:" prop="description">
           <el-input

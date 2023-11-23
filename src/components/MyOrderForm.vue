@@ -7,6 +7,7 @@
       title="Новый заказ"
       style="border-radius: 15px"
       align-center
+      width="500"
     >
       <el-form
         ref="ruleFormRef"
