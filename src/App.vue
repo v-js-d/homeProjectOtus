@@ -2,6 +2,7 @@
   <el-container>
     <el-header class="flex items-center justify-between">
       <h1>Header</h1>
+      <my-input v-model="search" class="max-w-[300px]" />
       <div class="flex items-center">
         <el-button type="primary" size="small" @click="isShowDialog('create')">
           Создать
@@ -9,7 +10,6 @@
         <el-button type="primary" size="small" @click="isShowDialog('order')">
           Заказать
         </el-button>
-        <my-input v-model="search" />
       </div>
       <my-order-form v-model="dialogOrder" />
       <my-create-product v-model="dialogCreateProduct" />
@@ -74,7 +74,7 @@ const filterTableData = computed(() =>
     (data) =>
       !search.value ||
       data.title.toLowerCase().includes(search.value.toLowerCase()) ||
-      data.price.toString().toLowerCase().includes(search.value.toLowerCase()),
+      data.price.toString().toLowerCase() === parseInt(search.value).toString(),
   ),
 );
 
