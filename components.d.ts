@@ -10,6 +10,7 @@ declare module 'vue' {
     ElAlert: (typeof import("element-plus/es"))["ElAlert"]
     ElAutocomplete: (typeof import("element-plus/es"))["ElAutocomplete"]
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElCard: typeof import('element-plus/es')['ElCard']
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
     ElCol: typeof import('element-plus/es')['ElCol']
     ElContainer: typeof import('element-plus/es')['ElContainer']
@@ -25,9 +26,13 @@ declare module 'vue' {
     ElOption: (typeof import("element-plus/es"))["ElOption"]
     ElSpace: (typeof import("element-plus/es"))["ElSpace"]
     ElTimePicker: typeof import('element-plus/es')['ElTimePicker']
-    MyCreateProduct: typeof import('./src/components/MyCreateProduct.vue')['default']
+    MyFooter: typeof import('./src/components/MyFooter.vue')['default']
+    MyHeader: typeof import('./src/components/MyHeader.vue')['default']
     MyInput: typeof import('./src/components/MyInput.vue')['default']
+    MyNavbar: typeof import('./src/components/MyNavbar.vue')['default']
     MyOrderForm: typeof import('./src/components/MyOrderForm.vue')['default']
-    MyProducts: typeof import('./src/components/MyProducts.vue')['default']
+    MyProductsCard: typeof import('./src/components/MyProductsCard.vue')['default']
+    RouterLink: typeof import('vue-router')['RouterLink']
+    RouterView: typeof import('vue-router')['RouterView']
   }
 }

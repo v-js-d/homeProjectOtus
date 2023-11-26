@@ -15,6 +15,7 @@
         :rules="rules"
         label-width="90px"
         status-icon
+        @submit.prevent="submitForm(ruleFormRef)"
       >
         <el-form-item label="Имя:" prop="name">
           <el-input v-model="ruleForm.name" />
@@ -69,7 +70,7 @@
           <el-button
             type="primary"
             :disabled="!ruleForm.agreement"
-            @click="submitForm(ruleFormRef)"
+            native-type="submit"
           >
             Заказать
           </el-button>
