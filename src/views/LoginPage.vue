@@ -18,7 +18,12 @@
           <el-input v-model="ruleForm.password" type="password" show-password />
         </el-form-item>
         <el-form-item>
-          <el-button class="w-full" type="success" native-type="submit">
+          <el-button
+            :loading="loading"
+            class="w-full"
+            type="success"
+            native-type="submit"
+          >
             Login
           </el-button>
         </el-form-item>
@@ -30,7 +35,7 @@
 <script setup lang="ts">
 import type { FormInstance, FormRules } from "element-plus";
 import { ref, reactive } from "vue";
-import axios from "axios";
+import { useStore } from "../store";
 import { ElMessage } from "element-plus";
 import { useRouter } from "vue-router";
 
@@ -40,6 +45,8 @@ interface RuleForm {
 }
 
 const router = useRouter();
+const store = useStore();
+const loading = ref(false);
 const ruleFormRef = ref<FormInstance>();
 const ruleForm = reactive<RuleForm>({
   username: "mor_2314",
@@ -67,21 +74,18 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   await formEl.validate(async (valid) => {
     if (valid) {
-      console.log("submit!");
       const { username, password } = ruleForm;
       try {
-        const res = await axios.post("https://fakestoreapi.com/auth/login", {
-          username,
-          password,
-        });
-        localStorage.setItem("login", "true");
-        localStorage.setItem("token", res.data.token);
+        loading.value = true;
+        await store.login(username, password);
         await router.push("/products");
       } catch (e) {
         ElMessage({
           message: "Что то пошло не так",
           type: "error",
         });
+      } finally {
+        loading.value = false;
       }
     }
   });

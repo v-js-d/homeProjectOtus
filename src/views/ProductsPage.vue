@@ -5,6 +5,13 @@
       <my-input v-model="search" class="max-w-[300px]" />
     </div>
     <div
+      v-if="loading"
+      v-loading="loading"
+      class="w-screen h-screen"
+      element-loading-text="Loading..."
+    />
+    <div
+      v-if="!loading"
       class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5"
     >
       <my-products-card
@@ -25,43 +32,33 @@
 
 <script setup lang="ts">
 import MyProductsCard from "../components/MyProductsCard.vue";
-import axios from "axios";
 import { computed, onMounted, ref } from "vue";
 import MyInput from "../components/MyInput.vue";
 import { useRouter } from "vue-router";
+import { useStore } from "../store";
 import { ElMessage } from "element-plus";
 
-interface Product {
-  id: number;
-  title: string;
-  price: number;
-  category: string;
-  description: string;
-  image: string;
-  rating: {
-    count: number;
-    rate: number;
-  };
-}
+const store = useStore();
+const router = useRouter();
+const loading = ref(false);
+const search = ref<string>("");
 
 onMounted(async () => {
   try {
-    const res = await axios.get("https://fakestoreapi.com/products");
-    products.value = res.data;
+    loading.value = true;
+    await store.getProducts();
   } catch (e) {
     ElMessage({
       message: "Что то пошло не так",
       type: "error",
     });
+  } finally {
+    loading.value = false;
   }
 });
 
-const router = useRouter();
-const products = ref<Product[]>([]);
-const search = ref<string>("");
-
 const filterTableData = computed(() =>
-  products.value.filter(
+  store.products.filter(
     (data) =>
       !search.value ||
       data.title.toLowerCase().includes(search.value.toLowerCase()) ||
