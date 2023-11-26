@@ -35,7 +35,11 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm(ruleFormRef)">
+            <el-button
+              :loading="loading"
+              type="primary"
+              @click="submitForm(ruleFormRef)"
+            >
               Создать
             </el-button>
             <el-button @click="resetForm(ruleFormRef)">Очистить</el-button>
@@ -48,8 +52,9 @@
 
 <script setup lang="ts">
 import { reactive, ref } from "vue";
-import { ElMessage, FormInstance, FormRules } from "element-plus";
-import axios from "axios";
+import type { FormInstance, FormRules } from "element-plus";
+import { useStore } from "../store";
+import { ElMessage } from "element-plus";
 
 interface RuleForm {
   title: string;
@@ -59,6 +64,8 @@ interface RuleForm {
   category: string;
 }
 
+const store = useStore();
+const loading = ref(false);
 const ruleFormRef = ref<FormInstance>();
 const ruleForm = reactive<RuleForm>({
   title: "",
@@ -101,7 +108,8 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     if (valid) {
       const { title, price, description, image, category } = ruleForm;
       try {
-        await axios.post("https://fakestoreapi.com/products", {
+        loading.value = true;
+        await store.createProduct({
           title,
           price,
           description,
@@ -118,6 +126,8 @@ const submitForm = async (formEl: FormInstance | undefined) => {
           message: "Что то пошло не так",
           type: "error",
         });
+      } finally {
+        loading.value = false;
       }
     }
   });

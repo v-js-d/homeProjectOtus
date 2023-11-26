@@ -71,6 +71,7 @@
             type="primary"
             :disabled="!ruleForm.agreement"
             native-type="submit"
+            :loading="loading"
           >
             Заказать
           </el-button>
@@ -85,7 +86,7 @@
 import { ElMessage } from "element-plus";
 import { ref, reactive, computed } from "vue";
 import type { FormInstance, FormRules } from "element-plus";
-import axios from "axios";
+import { useStore } from "../store";
 
 const props = defineProps<{
   modelValue: boolean;
@@ -114,6 +115,8 @@ const setProp = computed({
   },
 });
 
+const store = useStore();
+const loading = ref(false);
 const ruleFormRef = ref<FormInstance>();
 const ruleForm = reactive<RuleForm>({
   name: "",
@@ -194,17 +197,29 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   await formEl.validate(async (valid) => {
     if (valid) {
-      const { name, surname, telephone, city, address, date1, date2 } =
-        ruleForm;
+      const {
+        name,
+        surname,
+        email,
+        telephone,
+        city,
+        address,
+        date1,
+        date2,
+        agreement,
+      } = ruleForm;
       try {
-        await axios.post("https://httpbin.org/anything", {
+        loading.value = true;
+        await store.payOrder({
           name,
           surname,
+          email,
           telephone,
           city,
           address,
           date1,
           date2,
+          agreement,
         });
         emit("update:modelValue", false);
         ElMessage({
@@ -216,6 +231,8 @@ const submitForm = async (formEl: FormInstance | undefined) => {
           message: "Что то пошло не так",
           type: "error",
         });
+      } finally {
+        loading.value = false;
       }
     }
   });
