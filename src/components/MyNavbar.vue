@@ -13,8 +13,7 @@
 
 <script setup lang="ts">
 function logOut() {
-  localStorage.setItem("login", "false");
-  localStorage.setItem("token", "");
+  sessionStorage.setItem("token", "");
 }
 </script>
 

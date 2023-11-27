@@ -5,7 +5,7 @@ import CreateProductPage from "./views/CreateProductPage.vue";
 import BasketPage from "./views/BasketPage.vue";
 import ProductPage from "./views/ProductPage.vue";
 
-export default createRouter({
+export const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
@@ -34,4 +34,9 @@ export default createRouter({
       component: BasketPage,
     },
   ],
+});
+
+router.beforeEach(async (to) => {
+  if (!sessionStorage.getItem("token") && to.name !== "LoginPage")
+    return { name: "LoginPage" };
 });
