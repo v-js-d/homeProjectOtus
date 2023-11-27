@@ -1,6 +1,11 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import axios from "axios";
+
+export type User = {
+  username: string;
+  password: string;
+};
 
 export type Product = {
   id: number;
@@ -16,6 +21,9 @@ export type Product = {
 };
 
 export type loginResponse = {
+  config: {
+    data: string;
+  };
   data: {
     token: string;
   };
@@ -50,8 +58,11 @@ export type productResponse = {
 };
 
 export const useStore = defineStore("counter", () => {
+  const user = ref<User>();
   const product = ref<Product>();
   const products = ref<Array<Product>>([]);
+
+  const userName = computed(() => user.value?.username);
 
   const login = async (username: string, password: string) => {
     console.log(username, password);
@@ -62,8 +73,8 @@ export const useStore = defineStore("counter", () => {
         password,
       },
     );
-    localStorage.setItem("login", "true");
-    localStorage.setItem("token", res.data.token);
+    user.value = JSON.parse(res.config.data);
+    sessionStorage.setItem("token", res.data.token);
   };
 
   const getProducts = async () => {
@@ -93,6 +104,8 @@ export const useStore = defineStore("counter", () => {
   };
 
   return {
+    user,
+    userName,
     products,
     product,
     login,
