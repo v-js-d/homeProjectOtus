@@ -6,7 +6,7 @@
         <el-button type="primary" size="small" @click="isShowDialog">
           Заказать
         </el-button>
-        <el-button type="danger" size="small" @click="clearBascetPage">
+        <el-button type="danger" size="small" @click="clearBasketPage">
           Очистить
         </el-button>
       </div>
@@ -37,19 +37,7 @@
 import MyProductsCard from "../components/MyProductsCard.vue";
 import { computed, ref } from "vue";
 import MyOrderForm from "../components/MyOrderForm.vue";
-
-interface Product {
-  id: number;
-  title: string;
-  price: number;
-  category: string;
-  description: string;
-  image: string;
-  rating: {
-    count: number;
-    rate: number;
-  };
-}
+import { Product } from "../store/product.ts";
 
 const dialogOrder = ref<boolean>(false);
 const storedProducts = computed(() => localStorage.getItem("basketProducts"));
@@ -66,7 +54,7 @@ const deleteProduct = (productId: number) => {
   localStorage.setItem("basketProducts", JSON.stringify(updatedProducts));
 };
 
-function clearBascetPage() {
+function clearBasketPage() {
   products.value = [];
   localStorage.setItem("basketProducts", "");
 }

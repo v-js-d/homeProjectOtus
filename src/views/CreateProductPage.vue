@@ -53,7 +53,7 @@
 <script setup lang="ts">
 import { reactive, ref } from "vue";
 import type { FormInstance, FormRules } from "element-plus";
-import { useStore } from "../store";
+import { useStoreProduct } from "../store/product.ts";
 import { ElMessage } from "element-plus";
 
 interface RuleForm {
@@ -64,7 +64,7 @@ interface RuleForm {
   category: string;
 }
 
-const store = useStore();
+const projectStore = useStoreProduct();
 const loading = ref(false);
 const ruleFormRef = ref<FormInstance>();
 const ruleForm = reactive<RuleForm>({
@@ -109,7 +109,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
       const { title, price, description, image, category } = ruleForm;
       try {
         loading.value = true;
-        await store.createProduct({
+        await projectStore.createProduct({
           title,
           price,
           description,

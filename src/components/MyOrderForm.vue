@@ -86,7 +86,7 @@
 import { ElMessage } from "element-plus";
 import { ref, reactive, computed } from "vue";
 import type { FormInstance, FormRules } from "element-plus";
-import { useStore } from "../store";
+import { useStoreBasket } from "../store/basket.ts";
 
 const props = defineProps<{
   modelValue: boolean;
@@ -115,7 +115,7 @@ const setProp = computed({
   },
 });
 
-const store = useStore();
+const basketStore = useStoreBasket();
 const loading = ref(false);
 const ruleFormRef = ref<FormInstance>();
 const ruleForm = reactive<RuleForm>({
@@ -210,7 +210,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
       } = ruleForm;
       try {
         loading.value = true;
-        await store.payOrder({
+        await basketStore.payOrder({
           name,
           surname,
           email,
