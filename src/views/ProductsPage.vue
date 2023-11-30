@@ -35,10 +35,10 @@ import MyProductsCard from "../components/MyProductsCard.vue";
 import { computed, onMounted, ref } from "vue";
 import MyInput from "../components/MyInput.vue";
 import { useRouter } from "vue-router";
-import { useStore } from "../store";
+import { useStoreProduct } from "../store/product.ts";
 import { ElMessage } from "element-plus";
 
-const store = useStore();
+const projectStore = useStoreProduct();
 const router = useRouter();
 const loading = ref(false);
 const search = ref<string>("");
@@ -46,7 +46,7 @@ const search = ref<string>("");
 onMounted(async () => {
   try {
     loading.value = true;
-    await store.getProducts();
+    await projectStore.getProducts();
   } catch (e) {
     ElMessage({
       message: "Что то пошло не так",
@@ -58,7 +58,7 @@ onMounted(async () => {
 });
 
 const filterTableData = computed(() =>
-  store.products.filter(
+  projectStore.products.filter(
     (data) =>
       !search.value ||
       data.title.toLowerCase().includes(search.value.toLowerCase()) ||

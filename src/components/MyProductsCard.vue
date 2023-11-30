@@ -41,6 +41,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import type { Product } from "../store/product.ts";
 
 const props = defineProps<{
   id: number;
@@ -57,19 +58,6 @@ const props = defineProps<{
   deleteHandler?: (productId: number) => void;
 }>();
 
-interface Product {
-  id: number;
-  title: string;
-  price: number;
-  category: string;
-  description: string;
-  image: string;
-  rating: {
-    count: number;
-    rate: number;
-  };
-}
-
 const quantity = ref<number>(props.quantity ? Number(props.quantity) : 0);
 
 const updateQuantity = (value: number | undefined) => {
@@ -78,15 +66,26 @@ const updateQuantity = (value: number | undefined) => {
   }
 };
 
+// TODO: нужно как будет время переделать все через стор
 const getProduct = (item: Product, qty: number) => {
   const productWithQuantity = {
     ...item,
     quantity: qty,
   };
   const storedProducts = localStorage.getItem("basketProducts");
-  const existingProducts = storedProducts ? JSON.parse(storedProducts) : [];
-  const updatedProducts = [...existingProducts, productWithQuantity];
-  localStorage.setItem("basketProducts", JSON.stringify(updatedProducts));
+  const existingProducts = ref<Array<Product>>(
+    storedProducts ? JSON.parse(storedProducts) : [],
+  );
+  if (existingProducts.value) {
+    const product = existingProducts.value.find((el) => el.id === item.id);
+    if (product) {
+      // TODO: нужно будет доделать чтобы колличество productWithQuantity складывалось
+      return;
+    } else {
+      const updatedProducts = [...existingProducts.value, productWithQuantity];
+      localStorage.setItem("basketProducts", JSON.stringify(updatedProducts));
+    }
+  }
 };
 </script>
 

@@ -35,9 +35,9 @@
 <script setup lang="ts">
 import type { FormInstance, FormRules } from "element-plus";
 import { ref, reactive } from "vue";
-import { useStore } from "../store";
 import { ElMessage } from "element-plus";
 import { useRouter } from "vue-router";
+import { useStoreUser } from "../store/user.ts";
 
 interface RuleForm {
   username: string;
@@ -45,7 +45,7 @@ interface RuleForm {
 }
 
 const router = useRouter();
-const store = useStore();
+const userStore = useStoreUser();
 const loading = ref(false);
 const ruleFormRef = ref<FormInstance>();
 const ruleForm = reactive<RuleForm>({
@@ -77,7 +77,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
       const { username, password } = ruleForm;
       try {
         loading.value = true;
-        await store.login(username, password);
+        await userStore.login(username, password);
         await router.push("/products");
       } catch (e) {
         ElMessage({

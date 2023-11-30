@@ -7,15 +7,15 @@
       element-loading-text="Loading..."
     />
     <my-products-card
-      v-if="store.product && !loading"
-      :id="store.product.id"
+      v-if="projectStore.product && !loading"
+      :id="projectStore.product.id"
       class="w-[400px]"
-      :image="store.product.image"
-      :title="store.product.title"
-      :category="store.product.category"
-      :price="store.product.price"
-      :description="store.product.description"
-      :rating="store.product.rating"
+      :image="projectStore.product.image"
+      :title="projectStore.product.title"
+      :category="projectStore.product.category"
+      :price="projectStore.product.price"
+      :description="projectStore.product.description"
+      :rating="projectStore.product.rating"
     />
   </div>
 </template>
@@ -24,12 +24,12 @@
 import MyProductsCard from "../components/MyProductsCard.vue";
 import { onMounted, watch } from "vue";
 import { useRoute } from "vue-router";
-import { useStore } from "../store";
+import { useStoreProduct } from "../store/product.ts";
 import { ElMessage } from "element-plus";
 import { ref } from "vue";
 
 const route = useRoute();
-const store = useStore();
+const projectStore = useStoreProduct();
 const loading = ref(false);
 
 onMounted(() => {
@@ -38,7 +38,7 @@ onMounted(() => {
     async (newId) => {
       try {
         loading.value = true;
-        await store.getProduct(Number(newId));
+        await projectStore.getProduct(Number(newId));
       } catch (e) {
         ElMessage({
           message: "Что то пошло не так",
