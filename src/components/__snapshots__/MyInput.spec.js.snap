@@ -1,0 +1,3 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`MyInput component > mounts without errors 1`] = `"<input modelvalue="hello search" placeholder="Поиск ..." class="w-[180px] ml-3">"`;
