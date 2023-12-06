@@ -1,7 +1,7 @@
-import { describe, beforeEach, expect, test } from "vitest";
+import { describe, expect, test } from "vitest";
+import { mount } from "@vue/test-utils";
 
 import component from "./MyInput.vue";
-import { mount } from "@vue/test-utils";
 
 describe("MyInput component", () => {
   function buildWrapper(value) {

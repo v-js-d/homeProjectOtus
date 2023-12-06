@@ -1,0 +1,30 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`MyProductsCard component > mounts without errors 1`] = `
+"<div class="el-card is-always-shadow cursor-pointer">
+  <!--v-if-->
+  <div class="el-card__body" style="">
+    <div class="flex flex-col gap-y-1 p-3">
+      <div class="h-[200px] bg-neutral-200 p-3 rounded flex items-center justify-center"><img class="h-full rounded" src="none" alt="img"></div><span>Product 1</span><span class="text-sm">category: computers</span><span>600</span><span class="text-sm">description: Lorem ipsum</span>
+      <div class="flex items-center justify-between text-sm"><span>rate: 4.5</span><span>count: 200</span></div>
+      <div class="el-input-number"><span role="button" aria-label="decrease number" class="el-input-number__decrease"><i class="el-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" d="M128 544h768a32 32 0 1 0 0-64H128a32 32 0 0 0 0 64z"></path></svg></i></span><span role="button" aria-label="increase number" class="el-input-number__increase"><i class="el-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" d="M480 480V128a32 32 0 0 1 64 0v352h352a32 32 0 1 1 0 64H544v352a32 32 0 1 1-64 0V544H128a32 32 0 0 1 0-64h352z"></path></svg></i></span>
+        <div class="el-input">
+          <!-- input -->
+          <!-- prepend slot -->
+          <!--v-if-->
+          <div class="el-input__wrapper">
+            <!-- prefix slot -->
+            <!--v-if--><input class="el-input__inner" step="1" max="Infinity" min="0" type="number" autocomplete="off" tabindex="0" role="spinbutton" aria-valuemin="0" aria-valuenow="35" aria-disabled="false"><!-- suffix slot -->
+            <!--v-if-->
+          </div><!-- append slot -->
+          <!--v-if-->
+        </div>
+      </div><button ariadisabled="false" type="button" class="el-button el-button--primary">
+        <!--v-if--><span class=""> В корзину </span>
+      </button><button ariadisabled="false" type="button" class="el-button el-button--danger !ml-0">
+        <!--v-if--><span class=""> Удалить </span>
+      </button>
+    </div>
+  </div>
+</div>"
+`;
