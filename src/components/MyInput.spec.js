@@ -1,4 +1,5 @@
 import { describe, beforeEach, expect, test } from "vitest";
+
 import component from "./MyInput.vue";
 import { mount } from "@vue/test-utils";
 
@@ -6,16 +7,9 @@ describe("MyInput component", () => {
   function buildWrapper(value) {
     const wrapper = mount(component, {
       propsData: { modelValue: value },
-      components: {
-        ElInput: {
-          template: `<input :value="value" @change="$emit('update:modelValue', $event.target.value)">`,
-          props: ['value', 'size', 'prefix-icon'],
-        },
-      },
     });
     return wrapper;
   }
-  beforeEach(async () => {});
 
   test("mounts without errors", () => {
     const wrapper = buildWrapper("hello search");
