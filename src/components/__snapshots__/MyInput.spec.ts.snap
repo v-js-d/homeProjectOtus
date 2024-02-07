@@ -1,0 +1,14 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`MyInput component > mounts without errors 1`] = `
+"<div class="el-input el-input--small el-input--prefix w-[180px] ml-3">
+  <!-- input -->
+  <!-- prepend slot -->
+  <!--v-if-->
+  <div class="el-input__wrapper">
+    <!-- prefix slot --><span class="el-input__prefix"><span class="el-input__prefix-inner"><i class="el-icon el-input__icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="currentColor" d="m795.904 750.72 124.992 124.928a32 32 0 0 1-45.248 45.248L750.656 795.904a416 416 0 1 1 45.248-45.248zM480 832a352 352 0 1 0 0-704 352 352 0 0 0 0 704"></path></svg></i></span></span><input class="el-input__inner" type="text" autocomplete="off" tabindex="0" placeholder="Поиск ..."><!-- suffix slot -->
+    <!--v-if-->
+  </div><!-- append slot -->
+  <!--v-if-->
+</div>"
+`;
