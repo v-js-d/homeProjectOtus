@@ -1,20 +1,7 @@
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
 import axios from "axios";
-
-export type User = {
-  username: string;
-  password: string;
-};
-
-export type loginResponse = {
-  config: {
-    data: string;
-  };
-  data: {
-    token: string;
-  };
-};
+import type { loginResponse, User } from "../types/typesUser.ts";
 
 export const useStoreUser = defineStore("user", () => {
   const user = ref<User>();

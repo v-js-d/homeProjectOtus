@@ -1,35 +1,12 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import axios from "axios";
-
-export type Product = {
-  id: number;
-  title: string;
-  price: number;
-  category: string;
-  description: string;
-  image: string;
-  rating: {
-    count: number;
-    rate: number;
-  };
-};
-
-export type createProductDTO = {
-  title: string;
-  price: number;
-  description: string;
-  image: string;
-  category: string;
-};
-
-export type productsResponse = {
-  data: Array<Product>;
-};
-
-export type productResponse = {
-  data: Product;
-};
+import type {
+  createProductDTO,
+  Product,
+  productResponse,
+  productsResponse,
+} from "../types/typesProduct.ts";
 
 export const useStoreProduct = defineStore("product", () => {
   const product = ref<Product>();
