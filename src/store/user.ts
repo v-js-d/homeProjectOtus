@@ -4,7 +4,7 @@ import axios from "axios";
 import type { loginResponse, User } from "../types/typesUser.ts";
 
 export const useStoreUser = defineStore("user", () => {
-  const user = ref<User>();
+  const user = ref(<User>{});
 
   const userName = computed(() => user.value?.username);
 
@@ -18,6 +18,7 @@ export const useStoreUser = defineStore("user", () => {
     );
     user.value = JSON.parse(res.config.data);
     sessionStorage.setItem("token", res.data.token);
+    return res
   };
 
   return {

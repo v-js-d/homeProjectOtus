@@ -9,7 +9,7 @@ import type {
 } from "../types/typesProduct.ts";
 
 export const useStoreProduct = defineStore("product", () => {
-  const product = ref<Product>();
+  const product = ref(<Product>{});
   const products = ref<Array<Product>>([]);
 
   const getProducts = async () => {
@@ -17,6 +17,7 @@ export const useStoreProduct = defineStore("product", () => {
       `${import.meta.env.VITE_BASE_URL}/products`,
     );
     products.value = res.data;
+    return res
   };
 
   const getProduct = async (id: number) => {
@@ -24,6 +25,7 @@ export const useStoreProduct = defineStore("product", () => {
       `${import.meta.env.VITE_BASE_URL}/products/${id}`,
     );
     product.value = res.data;
+    return res
   };
 
   const createProduct = async (dto: createProductDTO) => {

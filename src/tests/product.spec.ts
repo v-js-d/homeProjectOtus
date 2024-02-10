@@ -1,32 +1,44 @@
-import { describe, beforeEach, it, expect } from "vitest";
-import { createPinia, setActivePinia } from "pinia";
-import * as storeProduct from "../store/product.ts";
-import axios from "axios";
-import type { Product } from "../types/typesProduct.ts";
-import { ref } from 'vue'
+import { createPinia, setActivePinia } from 'pinia';
+import { describe, beforeEach, it, expect, vi } from 'vitest';
+import { useStoreProduct } from '../store/product.ts';
+import axios from 'axios';
+
+vi.mock('axios', () => ({
+  __esModule: true, // Это необходимо, чтобы поддерживать синтаксис ES модуля
+  default: { // Мокаем экспорт по умолчанию
+    get: vi.fn(), // Мокаем методы по необходимости
+    post: vi.fn(() => Promise.resolve({
+      data: { id: 1, title: "New Product", price: 100, description: "A new product", image: "image_url", category: "category" }
+    }))
+  },
+  get: vi.fn(), // Мокаем именованные экспорты, если нужно использовать axios как { get } from 'axios'
+  post: vi.fn() // Пример мокирования именованного экспорта
+}));
 
 describe('useStoreProduct', () => {
-  beforeEach(async () => {
+  beforeEach(() => {
     setActivePinia(createPinia());
+    vi.resetAllMocks();
   });
 
-  const mockProduct = ref(<Product>{})
-  const mockProducts = ref(<Array<Product>>[])
-
-  it('import without errors', () => {
-    expect(storeProduct).toBeDefined()
-    expect(typeof  storeProduct).toBe('object')
+  it("initial store is empty", () => {
+    const store = useStoreProduct()
+    expect(store.products).toHaveLength(0)
+    expect(store.product).toMatchObject({})
   })
 
-  it('request get products', async () => {
-    axios.get = vi.fn().mockResolvedValue({status: 200, data: mockProducts.value})
-  })
+  it('createProduct sends the correct post request', async () => {
+    const storeProduct = useStoreProduct();
+    const productDTO = {
+      title: "New Product",
+      price: 100,
+      description: "A new product",
+      image: "image_url",
+      category: "category",
+    };
 
-  it('request get product', async () => {
-    axios.get = vi.fn().mockResolvedValue({status: 200, data: mockProduct.value})
-  })
-
-  it('request post create product', async () => {
-    axios.post = vi.fn().mockResolvedValue({status: 200, data: mockProduct.value})
-  })
-})
+    await storeProduct.createProduct(productDTO);
+    const mockedAxios = axios;
+    expect(mockedAxios.post).toHaveBeenCalledWith(`${process.env.VITE_BASE_URL}/products`, productDTO);
+  });
+});
