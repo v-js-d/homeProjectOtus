@@ -1,4 +1,4 @@
-import { describe, expect, test, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { mount } from "@vue/test-utils";
 import component from "../components/MyProductsCard.vue";
 
@@ -30,7 +30,7 @@ describe("MyProductsCard component", () => {
     });
   }
 
-  test("mounts without errors", () => {
+  it("mounts without errors", () => {
     const wrapper = buildWrapper();
     expect(wrapper.exists()).toBe(true);
     expect(wrapper.html()).toMatchSnapshot();

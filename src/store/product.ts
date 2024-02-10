@@ -14,20 +14,20 @@ export const useStoreProduct = defineStore("product", () => {
 
   const getProducts = async () => {
     const res: productsResponse = await axios.get(
-      "https://fakestoreapi.com/products",
+      `${import.meta.env.VITE_BASE_URL}/products`,
     );
     products.value = res.data;
   };
 
   const getProduct = async (id: number) => {
     const res: productResponse = await axios.get(
-      `https://fakestoreapi.com/products/${id}`,
+      `${import.meta.env.VITE_BASE_URL}/products/${id}`,
     );
     product.value = res.data;
   };
 
   const createProduct = async (dto: createProductDTO) => {
-    await axios.post("https://fakestoreapi.com/products", {
+    await axios.post(`${import.meta.env.VITE_BASE_URL}/products`, {
       ...dto,
     });
   };

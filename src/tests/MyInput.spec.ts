@@ -1,4 +1,4 @@
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 import component from "../components/MyInput.vue";
 import { mount } from "@vue/test-utils";
 
@@ -9,12 +9,14 @@ describe("MyInput component", () => {
     });
     return wrapper;
   }
-  test("mounts without errors", () => {
+
+  it("mounts without errors", () => {
     const wrapper = buildWrapper("hello search");
     expect(wrapper.exists()).toBe(true);
     expect(wrapper.html()).toMatchSnapshot();
   });
-  test("can input", () => {
+
+  it("can input", () => {
     const wrapper = buildWrapper("hello search");
     const input = wrapper.find("input");
     input.setValue("updated!");

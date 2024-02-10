@@ -10,7 +10,7 @@ export const useStoreUser = defineStore("user", () => {
 
   const login = async (username: string, password: string) => {
     const res: loginResponse = await axios.post(
-      "https://fakestoreapi.com/auth/login",
+      `${import.meta.env.VITE_BASE_URL}/auth/login`,
       {
         username,
         password,

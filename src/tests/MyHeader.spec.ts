@@ -1,4 +1,4 @@
-import { describe, beforeEach, expect, test } from "vitest";
+import { describe, beforeEach, expect, it } from "vitest";
 import component from "../components/MyHeader.vue";
 import { mount } from "@vue/test-utils";
 import { setActivePinia, createPinia } from "pinia";
@@ -22,13 +22,13 @@ describe("MyHeader component", () => {
     setActivePinia(createPinia());
   });
 
-  test("mounts without errors", () => {
+  it("mounts without errors", () => {
     const wrapper = buildWrapper("/");
     expect(wrapper.exists()).toBe(true);
     expect(wrapper.html()).toMatchSnapshot();
   });
 
-  test("mounts when user available", async () => {
+  it("mounts when user available", async () => {
     const userStore = useStoreUser();
     userStore.user = { username: "Alex", password: "1234" };
 
